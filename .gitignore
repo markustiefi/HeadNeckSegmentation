@@ -1,5 +1,4 @@
 output/
 weights/
 *.pyc
-*.png
 *.pytorch
