@@ -1,5 +1,5 @@
 output/
-weights/
+weights_headneck/
 *.pyc
 *.pytorch
 *.nii.gz

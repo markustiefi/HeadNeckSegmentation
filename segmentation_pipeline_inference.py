@@ -28,7 +28,7 @@ gauss_mus = [352,389,418]
 gauss_sigma = [125, 147, 156]
 in_channels = 4
 
-folder_global = 'weights/weights_downsampled'
+folder_global = 'weights_headneck/weights_downsampled'
 
 
 global_list = [os.path.join(folder_global, f) for f in os.listdir(folder_global)]
