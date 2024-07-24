@@ -2,3 +2,4 @@ output/
 weights/
 *.pyc
 *.pytorch
+*.nii.gz

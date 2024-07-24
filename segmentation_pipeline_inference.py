@@ -19,7 +19,7 @@ from model.cldice_loss import soft_DiceLoss
 
 logger = get_logger('Pipeline')
 
-path_to_data = r'C:\Users\q117mt\CalcificationPaper\data\CTA_GE_reorientFalse' 
+path_to_data = r'./data/images'
 
 shape = tuple((96,96,128))
 patlist = os.listdir(path_to_data)
@@ -75,6 +75,7 @@ ignore_parallel_centerlines = True
 add_max_style = True
 
 use_direction_momentum = True
+save_patches_aftertime = False
 
 patch_size = (32,32,32)
 num_levels = 4
@@ -140,25 +141,11 @@ for pat in patlist:
         
         del nifti_file, save_path
                         
-        save_patches_aftertime = False
         if save_patches_aftertime:
             if not os.path.isdir(os.path.join(path_to_output, 'pred_patch_and_loc')):
                 os.mkdir(os.path.join(path_to_output, 'pred_patch_and_loc'))
             save_path = os.path.join(path_to_output, 'pred_patch_and_loc', pat[:7])
             np.save(save_path, pred_patch_and_loc)
-            
-
-        one_hot = torch.nn.functional.one_hot(torch.from_numpy(all_seg).to(torch.int64), 5)
-        one_hot = one_hot.permute(3,0,1,2)[1::]
-        for a in labels:
-            a -= 1 
-            plt.figure(figsize = (15,4))
-            plt.imshow(np.sum(one_hot[a].numpy(), axis = 1))
-            plt.title(f'{pat[0:7]} Prediciton {a+1}' )
-            plt.savefig(os.path.join(path_to_output, 'plots', 'Label_'+str(a+1), f'{pat[0:7]}_{a+1}'))
-            #plt.show()
-        del one_hot
-                        
 
 
     del all_seg, pred_patch_and_loc
