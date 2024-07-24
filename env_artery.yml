@@ -1,0 +1,33 @@
+name: env_artery
+channels:
+  - pytorch
+  - defaults
+dependencies:
+  - conda=4.12.0
+  - python=3.9
+  - conda=4.12.0
+  - imageio=2.9.0
+  - h5py=3.6.0
+  - matplotlib=3.5.1
+  - natsort=7.1.1
+  - numpy=1.20.3
+  - pandas=1.3.5
+  - pip=21.2.4
+  - scipy=1.7.3
+  - scikit-image=0.18.3
+  - scikit-learn=1.0.2
+  - seaborn=0.11.2
+  - spyder=5.2.2
+  - pytorch=1.10.1
+  - torchaudio=0.10.1
+  - torchvision=0.11.2
+  - tqdm=4.62.3
+  - pip:
+    - opencv-python==4.5.5.62
+    - torchio==0.18.77
+    - torchinfo==1.6.3
+    - tensorboard==2.8.0
+    - plotly==5.5.0
+    - simpleitk==2.1.1
+    - pydicom==2.2.2
+    - nibabel==3.2.1
