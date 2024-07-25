@@ -2,6 +2,10 @@
  
 ![Graphical Abstract](./documentation/graphical_abstract.png)
 
+conda create --name headneck python=3.9.18
+conda activate headneck
+pip install -r requirements.txt
+
 Python version 3.9.18
 
 Link to network weights:
