@@ -2,6 +2,8 @@
  
 ![Graphical Abstract](./documentation/graphical_abstract.png)
 
+Python version 3.9.18
+
 Link to network weights:
 https://fileshare.uibk.ac.at/d/ca920a9994d34cd5b00c/
 
