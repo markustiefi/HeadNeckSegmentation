@@ -8,6 +8,15 @@ pip install -r requirements.txt
 
 Python version 3.9.18
 
+To run the inference which takes ".nii.gz" files and returns the segmentation mask: use 
+python segmentation_pipeline_inference.py
+
+To run the training for the global seed point extractor run
+python main_global.py
+
+To run the training for the local network run
+python main_local.py
+
 Link to network weights:
 https://fileshare.uibk.ac.at/d/ca920a9994d34cd5b00c/
 
