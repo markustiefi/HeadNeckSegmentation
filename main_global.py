@@ -6,7 +6,6 @@ Created on Mon Nov  7 11:01:26 2022
 """
 import argparse
 import torchio as tio
-import json
 import os
 
 from training.seedpoint.train_global import train_global

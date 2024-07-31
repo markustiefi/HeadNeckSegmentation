@@ -7,15 +7,11 @@ Created on Fri Sep 15 11:35:07 2023
 
 from inference.segmentation_function_inference import automatic_segmentation
 import os
-import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import time
 from utils.utils import get_logger
 import torch
-import torchio as tio
 import nibabel
-from model.cldice_loss import soft_DiceLoss
 
 logger = get_logger('Pipeline')
 
@@ -28,9 +24,7 @@ gauss_mus = [352,389,418]
 gauss_sigma = [125, 147, 156]
 in_channels = 4
 
-folder_global = 'weights_headneck/weights_downsampled'
-
-
+folder_global = 'weights/weights_downsampled'
 global_list = [os.path.join(folder_global, f) for f in os.listdir(folder_global)]
 folder_local_1 = 'weights/weights_local/weights_label1'
 weights_1 = [os.path.join(folder_local_1, f) for f in os.listdir(folder_local_1)]
@@ -68,7 +62,7 @@ instancenorm = False
 dic_pathfinder = dict()
 flip_prediction = True
 global_aware_pathfinder = True
-device = 'cuda'
+device = 'cuda' if torch.cuda.is_available() else 'cpu'
 self_dice = 0.975
 thr_for_holes = 0.25
 ignore_parallel_centerlines = True
@@ -76,10 +70,10 @@ add_max_style = True
 
 use_direction_momentum = True
 save_patches_aftertime = False
+safe_result = True
 
 patch_size = (32,32,32)
 num_levels = 4
-
 count = 0
 times = []
 thr_path = thr_pathfinder_c[0]
@@ -95,9 +89,7 @@ input_dict = {'gauss_mus': gauss_mus, 'gauss_sigma': gauss_sigma, 'folder_global
                 'thr_for_holes': thr_for_holes, 'ignore_parallel_centerlines': ignore_parallel_centerlines, 'add_max_style': add_max_style}
             
 np.save(os.path.join(path_to_output, 'input_dict.npy'), input_dict)
-time_ = []
-
-#patlist = patlist[7:9]+patlist[:7]+patlist[9:]                
+time_ = []       
 
 for pat in patlist:
     t1 = time.time()
@@ -126,8 +118,7 @@ for pat in patlist:
                                                                        use_direction_momentum = use_direction_momentum, labels = labels,
                                                                        )
 
-                        
-    safe_result = True
+    
     if safe_result:
         if not os.path.isdir(os.path.join(path_to_output, 'segmentations')):
             os.mkdir(os.path.join(path_to_output, 'segmentations'))

@@ -8,7 +8,6 @@ Created on Mon Mar  6 10:38:22 2023
 import dicom2nifti
 import glob
 import os
-from tqdm import tqdm
 import nibabel as nib
 import numpy as np
 
