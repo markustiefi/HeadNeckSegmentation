@@ -1,6 +1,6 @@
 # HeadNeckSegmentation
  
-<embed src="./documentation/graphical_abstract.pdf" width="100%" height="600px" type="application/pdf">
+<iframe src="./documentation/graphical_abstract.pdf" width="100%" height="600px"></iframe>
 
 conda create --name headneck python=3.9.18
 conda activate headneck
