@@ -1,6 +1,6 @@
 # HeadNeckSegmentation
  
-![Graphical Abstract](./documentation/graphical_abstract.png)
+![Graphical Abstract](./documentation/graphical_abstract.pdf)
 
 conda create --name headneck python=3.9.18
 conda activate headneck
