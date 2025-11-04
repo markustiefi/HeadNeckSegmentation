@@ -39,7 +39,7 @@ def automatic_segmentation(pat, path_to_data,
                            instancenorm = True, flip_prediction = True, global_aware_pathfinder =True,
                            self_dice = 0.9, thr_for_holes = 0.1, ignore_parallel_centerlines = True,
                            add_max_style = False, use_direction_momentum = False,
-                           in_channels_local = 1, out_channels_local = 1, labels = [1,2,3,4]
+                           in_channels_local = 1, out_channels_local = 1, labels = [1,2,3,4], allow_break = True,
                            ):
 
     #time1 = time()
@@ -91,7 +91,7 @@ def automatic_segmentation(pat, path_to_data,
 
     loop = asyncio.get_event_loop()
     looper = asyncio.gather(*[add_patches_parallel(pred_patch_and_loc, key, thr_pathfinder_c, thr_pathfinder_v, thr_overall, add_max_style,
-                             thr_for_holes, shape, self_dice, ignore_parallel_centerlines, subject) for key in pred_patch_and_loc.keys()])
+                             thr_for_holes, shape, self_dice, ignore_parallel_centerlines, subject, allow_break) for key in pred_patch_and_loc.keys()])
     all_seg = loop.run_until_complete(looper)
     
     all_segmentations = np.zeros(shape)
@@ -126,7 +126,7 @@ def background(f):
 
 @background
 def add_patches_parallel(pred_patch_and_loc, key, thr_pathfinder_c, thr_pathfinder_v, thr_overall, add_max_style,
-                         thr_for_holes, shape, self_dice, ignore_parallel_centerlines, subject):
+                         thr_for_holes, shape, self_dice, ignore_parallel_centerlines, subject, allow_break):
     i = int(key[-1])-1
     if i<2:
         thr_pathfinder = thr_pathfinder_c
@@ -149,7 +149,7 @@ def add_patches_parallel(pred_patch_and_loc, key, thr_pathfinder_c, thr_pathfind
     if np.count_nonzero(pred_mean) == 0:
         pred_mean_lcc = pred_mean
     else:
-        pred_mean_lcc = getLargestCC(pred_mean, allow_break = True)
+        pred_mean_lcc = getLargestCC(pred_mean, allow_break = allow_break)
         
     return [pred_mean_lcc, key]
 
