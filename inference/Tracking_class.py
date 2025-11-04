@@ -437,17 +437,19 @@ class Image_predict(Downsample):
         pred_sq = prediction.squeeze().numpy().copy()
         if self.global_aware_pathfinder:
             if (self.is_above[a-1]) or (self.is_below[a-1]): 
-                #logger.info(f'Use higher pathfinder threshold, because is_above is {self.is_above} or is_below is {self.is_below}')
+                logger.info(f'Use higher pathfinder threshold, because is_above is {self.is_above} or is_below is {self.is_below}')
                 if self.momentum_global[a-1] > 3:
                     threshold = 0.5
             else:
                 threshold = self.threshold
                 
+        logger.info(f'Threshold after checking whether the current patch is above or below global prediction: {threshold}' )
+        
         pred_sq = threshold_img(pred_sq, threshold=threshold)
         if pred_sq.shape[0] == 3:
             pred_sq = pred_sq[1]+pred_sq[2]
         if len(np.unique(pred_sq)) == 1:
-            logger.info('Predicted all ones')
+            logger.info('Only one unique value in patch for tracking')
             pred_sq = np.zeros_like(pred_sq)
         else:
             pred_sq = getLargestCC(np.array(pred_sq), allow_break=True)
