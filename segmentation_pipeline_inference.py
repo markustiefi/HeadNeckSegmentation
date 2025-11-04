@@ -24,6 +24,8 @@ gauss_mus = [352,389,418]
 gauss_sigma = [125, 147, 156]
 in_channels = 4
 
+allow_break = True
+
 folder_global = 'weights/weights_downsampled'
 global_list = [os.path.join(folder_global, f) for f in os.listdir(folder_global)]
 folder_local_1 = 'weights/weights_local/weights_label1'
@@ -115,7 +117,7 @@ for pat in patlist:
                                                                        self_dice = self_dice, thr_for_holes= thr_for_holes,
                                                                        ignore_parallel_centerlines = ignore_parallel_centerlines,
                                                                        add_max_style = add_max_style, 
-                                                                       use_direction_momentum = use_direction_momentum, labels = labels,
+                                                                       use_direction_momentum = use_direction_momentum, labels = labels, allow_break = allow_break,
                                                                        )
 
     
