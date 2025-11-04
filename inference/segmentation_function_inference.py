@@ -149,7 +149,7 @@ def add_patches_parallel(pred_patch_and_loc, key, thr_pathfinder_c, thr_pathfind
     if np.count_nonzero(pred_mean) == 0:
         pred_mean_lcc = pred_mean
     else:
-        pred_mean_lcc = getLargestCC(pred_mean)
+        pred_mean_lcc = getLargestCC(pred_mean, allow_break = True)
         
     return [pred_mean_lcc, key]
 
